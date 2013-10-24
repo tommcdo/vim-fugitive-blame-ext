@@ -10,10 +10,18 @@ function! s:log_message(commit)
 	return s:log_messages[a:commit]
 endfunction
 
+function! s:truncate_message(message)
+	if strlen(a:message) > &columns
+		return a:message[0:(&columns - 6)] . '...'
+	else
+		return a:message
+	endif
+endfunction
+
 function! s:show_log_message()
 	let line = substitute(getline('.'), '\v^\^?([a-z0-9]+).*$', '\1', '')
 	redraw
-	echo s:log_message(line)
+	echo s:truncate_message(s:log_message(line))
 endfunction
 
 let s:log_messages = {}
