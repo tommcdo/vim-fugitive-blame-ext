@@ -12,7 +12,7 @@ endfunction
 
 function! s:truncate_message(message)
 	set noruler
-	set showcmd
+	set noshowcmd
 	if strlen(a:message) > &columns
 		return a:message[0:(&columns - 5)] . '...'
 	else
