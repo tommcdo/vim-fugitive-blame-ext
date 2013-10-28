@@ -11,8 +11,8 @@ function! s:log_message(commit)
 endfunction
 
 function! s:truncate_message(message)
-	set noruler
-	set noshowcmd
+	setlocal noruler
+	setlocal noshowcmd
 	if strlen(a:message) > &columns
 		return a:message[0:(&columns - 5)] . '...'
 	else
