@@ -11,8 +11,10 @@ function! s:log_message(commit)
 endfunction
 
 function! s:truncate_message(message)
+	set noruler
+	set showcmd
 	if strlen(a:message) > &columns
-		return a:message[0:(&columns - 4)] . '...'
+		return a:message[0:(&columns - 5)] . '...'
 	else
 		return a:message
 	endif
