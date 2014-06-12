@@ -1,5 +1,5 @@
 function! s:log_message(commit)
-	if a:commit == '00000000'
+	if a:commit =~ '^0\+$'
 		return '(Not Committed Yet)'
 	endif
 	if !has_key(s:log_messages, a:commit)
