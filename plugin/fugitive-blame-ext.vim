@@ -11,10 +11,19 @@ function! s:log_message(commit)
 endfunction
 
 function! s:truncate_message(message)
-	setlocal noruler
-	setlocal noshowcmd
-	if strlen(a:message) > &columns
-		return a:message[0:(&columns - 5)] . '...'
+	let offset = 2
+	if &ruler == 1 && (&laststatus == 0 || (&laststatus == 1 && winnr('$') == 1))
+		" Statusline is not visible, so the ruler is. Its width is either 17
+		" (default) or defined in 'rulerformat'.
+		let offset += str2nr(get(matchlist(&rulerformat, '^%\(\d\+\)('), 1, '17')) + 1
+	endif
+	if &showcmd
+		" Width of showcmd seems to always be 11.
+		let offset += 11
+	endif
+	let maxwidth = &columns - offset
+	if strlen(a:message) > maxwidth
+		return a:message[0:(maxwidth - 3)] . '...'
 	else
 		return a:message
 	endif
