@@ -3,7 +3,7 @@ function! s:log_message(commit)
 		return '(Not Committed Yet)'
 	endif
 	if !has_key(s:log_messages, a:commit)
-		let cmd_output = system('git --git-dir='.b:git_dir.' show --oneline '.a:commit)
+		let cmd_output = system('git --git-dir='.b:git_dir.' show --no-show-signature --oneline '.a:commit)
 		let first_line = split(cmd_output, '\n')[0]
 		let s:log_messages[a:commit] = substitute(first_line, '[a-z0-9]\+ ', '', '')
 	endif
